@@ -1,0 +1,80 @@
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { authService } from "@js/index";
+import { login } from "@store/authSlice";
+
+const Signin = () => {
+
+  const [loading, setLoading] = useState(false);
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    const user = await authService.signIn(data);
+    if (user) {
+      dispatch(login({ ...user }));
+      navigate("/chat");
+    }
+    setLoading(false);
+  };
+
+  return (
+    <form className="space-y-4 mt-4" onSubmit={handleSubmit(onSubmit)}>
+      <div className="group focus-within:text-[#1A2980]">
+        <label
+          htmlFor="email"
+          className="text-gray-400 group-focus-within:text-[#1A2980]"
+        >
+          Email
+        </label>
+        <input
+          id="email"
+          type="email"
+          placeholder="Enter Your Email"
+          {...register("email", { required: true })}
+          className="w-full px-4 py-2 text-black border border-zinc-300 rounded-lg focus:outline-none focus:border-[#1A2980]"
+        />
+        {errors.email && (
+          <p className="text-red-500 text-sm mt-1">Email is required</p>
+        )}
+      </div>
+
+      <div className="group focus-within:text-[#1A2980]">
+        <label
+          htmlFor="password"
+          className="text-gray-400 group-focus-within:text-[#1A2980]"
+        >
+          Password
+        </label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter Your Password"
+          {...register("password", { required: true })}
+          className="w-full px-4 py-2 text-black border border-zinc-300 rounded-lg focus:outline-none focus:border-[#1A2980]"
+        />
+        {errors.password && (
+          <p className="text-red-500 text-sm mt-1">Password is required</p>
+        )}
+      </div>
+
+      <button
+        type="submit"
+        disabled={loading}
+        className={`w-full text-white py-2 rounded-lg transition cursor-pointer ${
+          loading
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-[#1A2980] hover:bg-[#1A4890]"
+        }`}
+      >
+        Sign In
+      </button>
+    </form>
+  );
+};
+
+export default Signin;
