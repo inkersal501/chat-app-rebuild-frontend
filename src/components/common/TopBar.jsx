@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 // import { resetDefault } from "@store/chatSlice";
 import { logout } from "@store/authSlice";
 import Logo from "@components/Common/Logo";
+import UserIcon from "./UserIcon";
 
 function TopBar() {
 
@@ -51,12 +52,7 @@ function TopBar() {
           onClick={() => setShowLogout(!showLogout)}
         >
           <span className="text-sm">Hello, {user.username}</span>
-          <div
-            className="w-10 h-10 flex items-center justify-center rounded-full text-gray-900
-            bg-gradient-to-r from-gray-200 via-slate-100 to-gray-300 font-semibold text-lg uppercase"
-          >
-            {user.username[0] ? user.username[0] : ""}
-          </div>
+          <UserIcon name={user.username[0] ? user.username[0] : ""}/>          
         </div>
  
         {showLogout && (

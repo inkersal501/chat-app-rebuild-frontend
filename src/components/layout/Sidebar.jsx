@@ -48,7 +48,7 @@ function ActiveTabContent() {
   return sidebarTabs.map((tab) =>
     activeTab === tab.key ? (
       <div key={tab.key} className="flex flex-col h-full px-2 rounded-tl-md bg-slate-800 text-white">
-        <h2 className="text-xl font-bold capitalize p-4 shrink-0">
+        <h2 className="text-xl font-bold capitalize px-4 py-3 shrink-0">
           {tab.label}
         </h2>
  

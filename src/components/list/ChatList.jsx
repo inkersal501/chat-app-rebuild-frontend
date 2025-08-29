@@ -61,19 +61,19 @@ const ChatList = () => {
                     <div className="p-4 text-gray-400">Loading...</div>
                 ) : filteredChatList.length > 0 ? (
                     filteredChatList.map((chat, index) => {
-                    const other = chat.participants.find(p => p._id !== user._id);
-                    const displayName = other ? other.username : "My Chat";
-                    return (
-                        <div
-                        key={index}
-                        className={`${activeChat.id === chat._id
-                            ? "bg-gray-700"
-                            : "bg-slate-800 hover:bg-gray-700"} rounded-md px-2 py-1 my-1 cursor-pointer`}
-                        onClick={() => handleOpenChat(chat._id, displayName)}
-                        >
-                        <UserCard name={displayName} />
-                        </div>
-                    );
+                        const other = chat.participants.find(p => p._id !== user._id);
+                        const displayName = other ? other.username : "My Chat";
+                        return (
+                            <div
+                                key={index}
+                                className={`${activeChat.id === chat._id
+                                    ? "bg-gray-700 border border-gray-500"
+                                    : "bg-slate-800 hover:bg-gray-700"} rounded-md px-2 py-1 my-1 cursor-pointer`}
+                                onClick={() => handleOpenChat(chat._id, displayName)}
+                            >
+                                <UserCard name={displayName} />
+                            </div>
+                        );
                     })
                 ) : (
                     <div className="p-4 text-gray-400">No chats found.</div>

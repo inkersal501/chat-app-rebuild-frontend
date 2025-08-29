@@ -2,6 +2,9 @@ import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import {messageService, socketService} from "@js"; 
 import { useSelector } from "react-redux";  
 
+import Message from './Message';
+import MessageDate from './MessageDate';
+
 function MessageBubble({ chatId }) {
 
     const [messages, setMessages] = useState([]);
@@ -63,29 +66,14 @@ function MessageBubble({ chatId }) {
                     const formattedDate = messageService.getMessageDate(msg.createdAt);
                     const showDateSeparator = formattedDate !== previousDate;
                     previousDate = formattedDate;
+                    const {username} =msg.sender;
+                    const {content, createdAt} = msg;
                     return (
                         <div key={index}>
                             {showDateSeparator && (
-                                <div className="text-center my-2">
-                                    <span className="px-2 py-1 bg-slate-900 text-gray-400 text-xs rounded-md cursor-default">
-                                        {formattedDate}
-                                    </span>
-                                </div>
+                                <MessageDate formattedDate={formattedDate}/>
                             )}
-
-                            <div className={`flex items-center gap-3 ${isSender ? 'flex-row-reverse' : ''}`}>
-                                <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-900
-                                bg-gradient-to-r from-gray-200 via-slate-100 to-gray-300 font-semibold text-lg uppercase">
-                                    {msg.sender.username[0]}
-                                </div>
-                                <div className={`py-1 px-2 rounded-xl max-w-[90%] ${isSender ? 'bg-gray-800 border border-gray-700' : 'glass-bg'} text-white self-start`}>
-                                    <div><strong>{msg.sender.username}</strong></div>
-                                    <div className='flex gap-5 justify-between items-end'>
-                                        <span className='whitespace-pre'>{msg.content}</span>
-                                        <span className='text-end text-xs text-[#999]'>{messageService.convertDatetoTime(msg.createdAt)}</span>
-                                    </div>
-                                </div>
-                            </div>
+                            <Message isSender={isSender} msg={{username, content, createdAt}} /> 
                         </div>
                     );
                 })} 

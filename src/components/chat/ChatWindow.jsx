@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import useIsMobile from '@hooks/useIsMobile';
 import { MdArrowBack } from "react-icons/md";
 import IconButton from "../common/IconButton";
+import UserIcon from "../common/UserIcon";
  
 function ChatWindow() {
 
@@ -33,12 +34,9 @@ function ChatWindow() {
     <div className={`w-full ${isMobile?'h-8/9':'h-1/2'} md:h-full flex flex-col bg-slate-900`}>
       
       {/*Chat Header*/}
-      <div className="h-16 flex items-center justify-between px-4 border-b border-gray-900 bg-slate-800 z-10">
-        <div className="flex items-center">
-        <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-900
-        bg-gradient-to-r from-gray-200 via-slate-100 to-gray-300 font-semibold text-lg uppercase">
-          {username?username[0]:""}
-        </div>
+      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-900 bg-slate-800 z-10">
+        <div className="flex items-center"> 
+        <UserIcon name={username?username[0]:""}/>
         <h2 className="ms-3 text-xl font-bold capitalize">{username}</h2>
         </div>
         {isMobile && 
