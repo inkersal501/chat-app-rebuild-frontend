@@ -34,7 +34,7 @@ function ChatWindow() {
     <div className={`w-full ${isMobile?'h-8/9':'h-1/2'} md:h-full flex flex-col bg-slate-900`}>
       
       {/*Chat Header*/}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-900 bg-slate-800 z-10">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700 bg-slate-800 z-10">
         <div className="flex items-center gap-3"> 
           <UserIcon name={username?username[0]:""}/>
           <span className="text-white text-base font-medium">{username}</span>
@@ -56,7 +56,7 @@ function ChatWindow() {
       </div>
 
       {/*Message Input*/}
-      <div className="py-3 bg-slate-800 flex items-center px-4 border-t border-slate-700 overflow-hidden">
+      <div className="py-2 bg-slate-800 flex items-center px-4 border-t border-gray-700 overflow-hidden">
         <MessageInput />
       </div>
     </div>

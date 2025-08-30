@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { defaultState } from "../js/config";
+import { defaultState } from "@js/config";
 
 const sidebarSlice = createSlice({
     name : "sidebar",

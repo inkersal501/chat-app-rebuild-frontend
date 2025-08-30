@@ -11,7 +11,7 @@ const CustomTooltip = ({ children, tooltip, position = 'top' }) => {
       {children}
       {tooltip && (
         <span
-        className={`absolute ${positionClasses[position]} hidden group-hover:block text-sm text-[#fff] bg-slate-500 px-2 py-1.5 rounded-lg z-10 whitespace-nowrap`}
+        className={`absolute ${positionClasses[position]} hidden group-hover:block text-sm text-[#fff] bg-slate-700 shadow-lg border border-slate-600 px-2 py-1.5 rounded-lg z-10 whitespace-nowrap`}
         > 
             {tooltip}
         </span>

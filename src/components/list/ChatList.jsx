@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux"; 
 import UserCard from "../common/UserCard";
 import { chatService } from "@js";
-import { updateActiveChat, updateRefreshList } from "@store/chatSlice";
+import { updateActiveChat, updateFirstChat, updateRefreshList } from "@store/chatSlice";
 import useIsMobile from '@hooks/useIsMobile';
 
 const ChatList = () => {
@@ -26,13 +26,14 @@ const ChatList = () => {
                 const firstParticipant = firstChat.participants.find(p => p._id !== user._id);
                 const firstName = firstParticipant ? firstParticipant.username : "My Chat";
                 dispatch(updateActiveChat({ id: firstChat._id, username: firstName }));
+                dispatch(updateFirstChat({ id: firstChat._id, username: firstName }));
             }
         }  
         setLoading(false);
     };
 
     //eslint-disable-next-line
-    useEffect(() => { getChatList(); }, [refreshList, user, activeChat?.id, isMobile]);
+    useEffect(() => { getChatList(); }, []);
     //eslint-disable-next-line
     useEffect(() => { if (refreshList) { getChatList(); dispatch(updateRefreshList(false)); } }, [refreshList]);
 
@@ -66,9 +67,9 @@ const ChatList = () => {
                         return (
                             <div
                                 key={index}
-                                className={`${activeChat.id === chat._id
-                                    ? "bg-gray-700 border border-gray-500"
-                                    : "bg-slate-800 hover:bg-gray-700"} rounded-md px-2 py-1 my-1 cursor-pointer`}
+                                className={`border  ${activeChat.id === chat._id
+                                    ? "bg-gray-700 border border-gray-500 border-gray-600"
+                                    : "bg-slate-800 hover:bg-gray-700 border-gray-800"} rounded-md px-2 py-1 my-1 cursor-pointer`}
                                 onClick={() => handleOpenChat(chat._id, displayName)}
                             >
                                 <UserCard name={displayName} />
