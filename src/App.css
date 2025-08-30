@@ -52,3 +52,8 @@
 .scrollbar-custom.is-scrolling::-webkit-scrollbar-thumb:hover {
   background-color: rgba(100,100,100,0.8);
 }
+
+.add-chat-bg {
+  background-image: url("./assets/bg.jpeg");
+  background-size: contain;
+}

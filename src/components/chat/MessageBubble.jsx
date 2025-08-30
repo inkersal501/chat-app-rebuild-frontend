@@ -36,7 +36,7 @@ function MessageBubble({ chatId }) {
         return () => {
             socketService.off("receive_message", handleNewMessage);
         };
-    }, [chatId, user.token]);
+    }, [chatId, user]);
  
     useLayoutEffect(() => {
         if (messagesEndRef.current) { 
@@ -62,7 +62,7 @@ function MessageBubble({ chatId }) {
                 )}
                  
                 {messages.map((msg, index) => { 
-                    const isSender = msg.sender._id.toString() === user._id.toString();
+                    const isSender = (msg.sender._id).toString() === (user._id).toString();
                     const formattedDate = messageService.getMessageDate(msg.createdAt);
                     const showDateSeparator = formattedDate !== previousDate;
                     previousDate = formattedDate;

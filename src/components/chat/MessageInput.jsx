@@ -8,7 +8,7 @@ import {messageService, socketService} from "@js";
 function MessageInput() {
 
   const [message, setMessage] = useState("");
-  const user = useSelector((state)=>state.auth);
+  const {user} = useSelector((state)=>state.auth);
   const { id } = useSelector((state) => state.chat.activeChat); 
   const dispatch = useDispatch();
   
@@ -20,8 +20,7 @@ function MessageInput() {
       roomId: id,
       createdAt: Date.now()
     }; 
-    socketService.emit("send_message", {roomId: id, message: messageData});
-
+    socketService.emit("send_message", {roomId: id, message: messageData}); 
     await messageService.sendMessage(id, user.token, message); 
     dispatch(updateRefreshList(true));
     setMessage("");
@@ -34,7 +33,7 @@ function MessageInput() {
   // };
 
   useEffect(() => { 
-      setMessage(""); 
+    setMessage(""); 
   }, [id])
   
 
