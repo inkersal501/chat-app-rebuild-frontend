@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { selectUser } from "../redux/authSlice";
+import { useEffect, useState } from 'react'; 
 import { useSelector, useDispatch } from "react-redux";
-import { updateSidebarActiveTab } from '../redux/chatSlice';
-import {connectJS} from "../js";
-import UserCard from "./UserCard";
-import Button from './Button';
+import { updateActiveTab } from '@store/sidebarSlice';
+import {connectService} from "@js";
+import UserCard from "../common/UserCard";
+import Button from '../common/Button';
 
 function AcceptFriends() {
   
@@ -13,12 +12,12 @@ function AcceptFriends() {
   const [filteredRequests, setFilteredRequests] = useState([]);
   const [search, setSearch] = useState(""); 
   const [loading, setLoading] = useState(true);
-  const user = useSelector(selectUser);
+  const {user} = useSelector((state)=>state.auth);
 
   useEffect(() => {
     async function getRequests() {
       setLoading(true);
-      const result = await connectJS.getRequests(user.token);
+      const result = await connectService.getRequests(user.token);
       if (result.status) {
         setReqUsers(result.requests.map(u => ({ ...u, status: "accept" })));        
       } 
@@ -52,39 +51,39 @@ function AcceptFriends() {
       user._id === fromUserId ? { ...user, status: "request-accepted" } : user
     ));
 
-    await connectJS.acceptRequest(fromUserId, user.token); 
+    await connectService.acceptRequest(fromUserId, user.token); 
   };
 
   const declineRequest = async (fromUserId) => {
     setReqUsers(prev => prev.map(user =>
       user._id === fromUserId ? { ...user, status: "request-declined" } : user
     ));
-    await connectJS.declineRequest(fromUserId, user.token); 
+    await connectService.declineRequest(fromUserId, user.token); 
   };
 
   const handleFindFriendsClick = () => {
-    dispatch(updateSidebarActiveTab("add-friends"));
+    dispatch(updateActiveTab("add-friends"));
   };
 
   return (
-    <div className="space-y-0">
-      <div className='bg-slate-900'>
-        <input
-          className="w-full bg-slate-700 px-4 py-2 text-white font-medium focus-visible:outline-none"
+    <div className="flex flex-col h-full">
+      <div className="p-2 shrink-0">
+          <input
           type="text"
-          placeholder="Search..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-        />
-      </div>
-      <div className='overflow-y-scroll'>
+          placeholder="Search..."
+          className="w-full rounded-md bg-slate-700 border-b border-gray-400 px-4 py-2 text-white focus:outline-none"
+          />
+      </div> 
+      <div className="flex-1 overflow-y-auto px-2 scrollbar-custom">
         {loading ? 
           (<div className="p-4 text-gray-400">Loading...</div>)
           :
           filteredRequests.length > 0 ? filteredRequests.map((user, index) => (
             <div
               key={index}
-              className="bg-slate-800 hover:bg-slate-700 border-b border-slate-700 transition cursor-pointer"
+              className="border-b border-slate-700 px-2 py-1 cursor-pointer"
             >
               <UserCard
                 name={user.username}

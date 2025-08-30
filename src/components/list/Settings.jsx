@@ -1,20 +1,19 @@
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../redux/authSlice";
+import { useDispatch, useSelector } from "react-redux"; 
 import { ImCheckmark } from "react-icons/im";
-import IconButton from "./IconButton";
+import IconButton from "../common/IconButton";
 import { useState } from "react";
-import {userJS} from "../js";
-import { login } from "../redux/authSlice";
+import {userService} from "@js";
+import { login } from "@store/authSlice";
 
-const SettingsPanel = () => {
+const Settings = () => {
 
-    const user = useSelector(selectUser);
+    const {user} = useSelector((state)=>state.auth);
     const dispatch = useDispatch();
     const [username, setUsername] = useState(user.username || "");
 
     const handleUsernameUpdate = async () => { 
         try {
-            const update = await userJS.updateUsername(user.token, username);
+            const update = await userService.updateUsername(user.token, username);
             dispatch(login({ ...update }));
         } catch (error) {
             console.error(error);
@@ -58,4 +57,4 @@ const SettingsPanel = () => {
     );
 }
 
-export default SettingsPanel;
+export default Settings;

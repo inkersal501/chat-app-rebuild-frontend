@@ -39,7 +39,7 @@ function UserCard({ name, type = "default", onActionClick, onDeclineClick, openC
         ); 
       case "friends":
         return (
-          <div className="text-center"> 
+          <div className="text-center bg-slate-600 rounded-full"> 
             <IconButton 
               icon={<FaComments />}
               tooltip={"Click to chat"}
@@ -55,7 +55,7 @@ function UserCard({ name, type = "default", onActionClick, onDeclineClick, openC
   };
 
   return (
-    <div className={`flex items-center justify-between gap-3 px-2 py-2 ${type==='friends'?'hover:bg-slate-800':''} transition duration-200 cursor-pointer`}>
+    <div className={`flex items-center justify-between gap-3 px-2 py-1 transition duration-200 cursor-pointer`}>
       <div className="flex items-center gap-3">
         <UserIcon name={name}/>
         <span className="text-white text-base font-medium">{name}</span>

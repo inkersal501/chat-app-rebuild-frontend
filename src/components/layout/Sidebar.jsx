@@ -5,18 +5,18 @@ import { FaComments, FaUserFriends, FaCog } from "react-icons/fa";
 import { MdPersonAdd, MdPersonAddAlt1 } from "react-icons/md";
 import { CgMathPlus } from "react-icons/cg";
 import ChatList from '../list/ChatList';
-import FriendList from '../list/ChatList';
-import AddFriends from '../list/ChatList';
-import AcceptFriends from '../list/ChatList';
-import SettingsPanel from '../list/ChatList';
+import Friends from '../list/Friends';
+import AddFriends from '../list/AddFriends';
+import AcceptFriends from '../list/AcceptFriends';
+import Settings from '../list/Settings';
 import Invite from '../list/Invite';
 
 const sidebarTabs = [
   { key: "chats", label: "Chats", icon: <FaComments size={22}/>, component: <ChatList /> },
-  { key: "friends", label: "Friends", icon: <FaUserFriends size={22}/>, component: <FriendList /> },
+  { key: "friends", label: "Friends", icon: <FaUserFriends size={22}/>, component: <Friends /> },
   { key: "add-friends", label: "Add Friends", icon: <MdPersonAddAlt1 size={22}/>, component: <AddFriends /> },
   { key: "accept-friends", label: "Accept Friends", icon: <MdPersonAdd size={22}/>, component: <AcceptFriends /> },
-  { key: "settings", label: "Settings", icon: <FaCog size={22}/>, component: <SettingsPanel /> },
+  { key: "settings", label: "Settings", icon: <FaCog size={22}/>, component: <Settings /> },
   { key: "invite", label: "Invite Friends", icon: <CgMathPlus size={22}/>, component: <Invite /> },
 ];
 

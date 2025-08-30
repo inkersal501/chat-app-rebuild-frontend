@@ -56,7 +56,7 @@ function ChatWindow() {
       </div>
 
       {/*Message Input*/}
-      <div className="h-16 bg-slate-800 flex items-center px-4 border-t border-slate-700 overflow-hidden">
+      <div className="py-3 bg-slate-800 flex items-center px-4 border-t border-slate-700 overflow-hidden">
         <MessageInput />
       </div>
     </div>

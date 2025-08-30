@@ -49,12 +49,12 @@ function MessageInput() {
             handleSend();
           }
         }}
-        className="w-full h-full bg-slate-800 focus:border border-slate-700 px-4 py-2 text-white font-medium rounded-lg focus-visible:outline-none resize-none scrollbar-custom"
+        className="w-full h-full bg-slate-800 border border-slate-800 focus:border-slate-700 px-4 py-2 text-white rounded-lg focus-visible:outline-none resize-none scrollbar-custom"
         placeholder="Type a message"
       />
       {message!=="" &&
       <div className="ms-4">
-        <IconButton icon={<IoSend />} tooltip={""} position="" active={false} onClick={handleSend} />
+        <IconButton icon={<IoSend size={16}/>} tooltip={""} position="" active={false} onClick={handleSend} />
       </div>
       }
     </div>
