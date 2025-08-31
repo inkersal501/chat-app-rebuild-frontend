@@ -1,7 +1,9 @@
 import logo from '@assets/logo-app.png';
+import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 
 function Logo({ size = "md" }) { 
+  const { user } = useSelector((state) => state.auth);
   const sizeClasses = {
     sm: "w-8", 
     md: "w-12", 
@@ -10,7 +12,7 @@ function Logo({ size = "md" }) {
   };
 
   return ( 
-      <Link to="/">
+      <Link to={`${user ? "/chat": "/"}`}>
         <img 
           src={logo} 
           alt="Chat App" 

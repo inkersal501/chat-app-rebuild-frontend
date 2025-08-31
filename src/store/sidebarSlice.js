@@ -7,10 +7,13 @@ const sidebarSlice = createSlice({
     reducers : {
         updateActiveTab : (state, action) => {
             state.activeTab = action.payload; 
-        } 
+        },
+        updateCounts : (state, action) => {
+            state.counts = action.payload;
+        },
     }
 });
    
 
-export const { updateActiveTab } = sidebarSlice.actions;
+export const { updateActiveTab, updateCounts } = sidebarSlice.actions;
 export default sidebarSlice.reducer;

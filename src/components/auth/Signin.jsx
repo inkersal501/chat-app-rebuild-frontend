@@ -24,10 +24,10 @@ const Signin = () => {
 
   return (
     <form className="space-y-4 mt-4" onSubmit={handleSubmit(onSubmit)}>
-      <div className="group focus-within:text-[#1A2980]">
+      <div className="group focus-within:text-yellow-500">
         <label
           htmlFor="email"
-          className="text-gray-400 group-focus-within:text-[#1A2980]"
+          className="text-gray-400 group-focus-within:text-yellow-500"
         >
           Email
         </label>
@@ -36,17 +36,17 @@ const Signin = () => {
           type="email"
           placeholder="Enter Your Email"
           {...register("email", { required: true })}
-          className="w-full px-4 py-2 text-black border border-zinc-300 rounded-lg focus:outline-none focus:border-[#1A2980]"
+          className="w-full px-4 py-2 text-white border border-gray-400 rounded-lg focus:outline-none focus:border-yellow-500"
         />
         {errors.email && (
-          <p className="text-red-500 text-sm mt-1">Email is required</p>
+          <p className="text-red-400 text-sm mt-1">Email is required</p>
         )}
       </div>
 
-      <div className="group focus-within:text-[#1A2980]">
+      <div className="group focus-within:text-yellow-500">
         <label
           htmlFor="password"
-          className="text-gray-400 group-focus-within:text-[#1A2980]"
+          className="text-gray-400 group-focus-within:text-yellow-500"
         >
           Password
         </label>
@@ -55,10 +55,10 @@ const Signin = () => {
           type="password"
           placeholder="Enter Your Password"
           {...register("password", { required: true })}
-          className="w-full px-4 py-2 text-black border border-zinc-300 rounded-lg focus:outline-none focus:border-[#1A2980]"
+          className="w-full px-4 py-2 text-white border border-gray-400 rounded-lg focus:outline-none focus:border-yellow-500"
         />
         {errors.password && (
-          <p className="text-red-500 text-sm mt-1">Password is required</p>
+          <p className="text-red-400 text-sm mt-1">Password is required</p>
         )}
       </div>
 
@@ -73,6 +73,15 @@ const Signin = () => {
       >
         Sign In
       </button>
+      <p className="text-center text-white">or</p>
+      <div className="w-full flex justify-center text-black font-medium">
+        <button className="text-white w-full flex gap-2 justify-center border border-gray-400 py-2 px-4 rounded-md cursor-pointer">
+          <img 
+          className="w-5 h-5"
+          src="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png" alt="Google" 
+          /> Continue with Google
+        </button>
+      </div>
     </form>
   );
 };

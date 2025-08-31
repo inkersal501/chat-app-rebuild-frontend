@@ -16,4 +16,5 @@ const updateUsername = async (userToken, username)=>{
         return false;
     }
 };
+
 export default { updateUsername };

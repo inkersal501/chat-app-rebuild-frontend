@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { updateActiveTab } from '@store/sidebarSlice';
+import { updateActiveTab, updateCounts } from '@store/sidebarSlice';
 import IconButton from '../common/IconButton';
 import { FaComments, FaUserFriends, FaCog } from "react-icons/fa";
 import { MdPersonAdd, MdPersonAddAlt1 } from "react-icons/md";
@@ -10,6 +10,8 @@ import AddFriends from '../list/AddFriends';
 import AcceptFriends from '../list/AcceptFriends';
 import Settings from '../list/Settings';
 import Invite from '../list/Invite';
+import { useEffect } from 'react';
+import {analyticsService} from "@js";
 
 const sidebarTabs = [
   { key: "chats", label: "Chats", icon: <FaComments size={22}/>, component: <ChatList /> },
@@ -21,8 +23,21 @@ const sidebarTabs = [
 ];
 
 function Sidebar() {
+
   const dispatch = useDispatch();
   const { activeTab } = useSelector((state) => state.sidebar);
+  const { user } = useSelector((state) => state.auth); 
+
+  const fetchAnalytics = async () => {
+    const analyticsData = await analyticsService.getData(user.token);
+    if(analyticsData.status) {
+      dispatch(updateCounts(analyticsData.data));
+    }
+  };
+
+  useEffect(() => {
+    fetchAnalytics(); 
+  }, []);
 
   return (
     <div className="flex flex-col h-full">
@@ -43,15 +58,17 @@ function Sidebar() {
 }
 
 function ActiveTabContent() {
-  const { activeTab } = useSelector((state) => state.sidebar);
-
+  const { activeTab, counts } = useSelector((state) => state.sidebar);
+ 
   return sidebarTabs.map((tab) =>
     activeTab === tab.key ? (
       <div key={tab.key} className="flex flex-col h-full px-2 rounded-tl-md bg-slate-800 text-white">
         <h2 className="text-xl font-bold capitalize px-4 py-3 shrink-0">
-          {tab.label}
+          {tab.label}     
+          {tab.key === "friends" && counts.friends > 0 && <span className="text-xs px-2 py-1 ms-4 rounded-full text-slate-800 bg-slate-100">{counts.friends}</span>}
+          {tab.key === "accept-friends" && counts.requests > 0 && <span className="text-xs px-2 py-1 ms-4 rounded-full text-slate-800 bg-slate-100">{counts.requests}</span>}
         </h2>
- 
+
         <div className="flex-1 overflow-y-auto">
           {tab.component}
         </div>
