@@ -14,6 +14,18 @@ const signIn = async (data)=>{
         return false;
     }
 };
+const googleSignIn = async (data) => {
+    try {
+        const result = await axios.post(`${apiEndpoint}/user/google_signin`, {...data}); 
+        if(result.status === 200){
+            toast.success(result.data.msg);
+           return result.data.user;
+        }            
+    } catch (error) {
+        toast.error(error.response.data.msg);
+        return false;
+    }
+};
 
 const signUp = async (data) => {
     try {
@@ -27,4 +39,4 @@ const signUp = async (data) => {
         return false;
     }
 };
-export default { signIn, signUp };
+export default { signIn, signUp, googleSignIn };

@@ -68,13 +68,13 @@ function AcceptFriends() {
   return (
     <div className="flex flex-col h-full">
       <div className="p-2 shrink-0">
-          <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search..."
-          className="w-full rounded-md bg-slate-700 border-b border-gray-400 px-4 py-2 text-white focus:outline-none"
-          />
+        <input
+        type="text"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search..."
+        className="w-full rounded-md bg-slate-700 border-b border-gray-400 px-4 py-2 text-white focus:outline-none"
+        />
       </div> 
       <div className="flex-1 overflow-y-auto px-2 scrollbar-custom">
         {loading ? 

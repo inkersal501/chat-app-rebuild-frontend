@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authService } from "@js/index";
-import { login } from "@store/authSlice";
+import { login } from "@store/authSlice"; 
 
 const Signin = () => {
 
@@ -20,7 +20,7 @@ const Signin = () => {
       navigate("/chat");
     }
     setLoading(false);
-  };
+  }; 
 
   return (
     <form className="space-y-4 mt-4" onSubmit={handleSubmit(onSubmit)}>
@@ -73,15 +73,7 @@ const Signin = () => {
       >
         Sign In
       </button>
-      <p className="text-center text-white">or</p>
-      <div className="w-full flex justify-center text-black font-medium">
-        <button className="text-white w-full flex gap-2 justify-center border border-gray-400 py-2 px-4 rounded-md cursor-pointer">
-          <img 
-          className="w-5 h-5"
-          src="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png" alt="Google" 
-          /> Continue with Google
-        </button>
-      </div>
+       
     </form>
   );
 };

@@ -10,7 +10,6 @@ const Settings = () => {
     const {user} = useSelector((state)=>state.auth);
     const dispatch = useDispatch();
     const [username, setUsername] = useState(user.username || "");
-
     const handleUsernameUpdate = async () => { 
         try {
             const update = await userService.updateUsername(user.token, username);
@@ -30,28 +29,38 @@ const Settings = () => {
             </div>
             <div className="p-4">
                 <div className="flex justify-between items-center gap-4">
-                    <div className="w-90">
+                    <div className="w-90 relative">
                         <label htmlFor="username">Username</label>
                         <input 
                             value={username}
-                            onChange={(e)=>setUsername(e.target.value)}
+                            onChange={(e) => setUsername(e.target.value) }
                             id="username"
                             type="text"
-                            className="border border-slate-700 bg-slate-900 w-full py-3 px-3 rounded-lg focus-visible:outline-none"
+                            className="w-full rounded-md bg-slate-700 border-b border-gray-400 px-4 py-2 text-white focus:outline-none pr-10" // <-- add padding-right for space
                         />
+
+                         
                     </div>
                     <div className="w-10 text-center flex items-center justify-center pt-4">
                         <IconButton 
-                            icon={<ImCheckmark />}
+                            icon={<ImCheckmark size={12}/>}
                             tooltip={"Update"}
                             active={true}
                             onClick={handleUsernameUpdate}
                             position="top"
                         />
-                        
                     </div>
                 </div>
-                
+                <div className="w-full my-4">
+                    <label htmlFor="email">Email</label>
+                    <input 
+                        value={user.email} 
+                        id="email"
+                        readOnly
+                        type="text"
+                        className="w-full rounded-md bg-slate-700 border-b border-gray-400 px-4 py-2 text-white focus:outline-none"
+                    />
+                </div>
             </div>
         </div>
     );
