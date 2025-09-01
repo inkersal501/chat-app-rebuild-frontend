@@ -26,7 +26,7 @@ const Auth = () => {
         try {
           const idToken = credentialResponse.credential;
            
-          const user = await authService.googleSignIn({ idToken });
+          const user = await authService.googleSignIn(idToken);
     
           if (user) {
             dispatch(login({ ...user }));

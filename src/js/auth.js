@@ -14,9 +14,9 @@ const signIn = async (data)=>{
         return false;
     }
 };
-const googleSignIn = async (data) => {
+const googleSignIn = async (idToken) => {
     try {
-        const result = await axios.post(`${apiEndpoint}/user/google_signin`, {...data}); 
+        const result = await axios.post(`${apiEndpoint}/user/google_signin`, {idToken}); 
         if(result.status === 200){
             toast.success(result.data.msg);
            return result.data.user;

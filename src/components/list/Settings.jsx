@@ -33,7 +33,7 @@ const Settings = () => {
                         <label htmlFor="username">Username</label>
                         <input 
                             value={username}
-                            onChange={(e) => setUsername(e.target.value) }
+                            onChange={(e) => setUsername(e.target.value)}
                             id="username"
                             type="text"
                             className="w-full rounded-md bg-slate-700 border-b border-gray-400 px-4 py-2 text-white focus:outline-none pr-10" // <-- add padding-right for space

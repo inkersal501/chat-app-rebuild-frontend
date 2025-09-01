@@ -11,10 +11,10 @@ import { google_clientId } from '@js/config.js';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ToastContainer position="top-center" autoClose={2000} theme="dark"/>
-    <Provider store={store}>
-      <GoogleOAuthProvider clientId={google_clientId}>
-        <App />
-      </GoogleOAuthProvider>
-    </Provider>
+    <GoogleOAuthProvider clientId={google_clientId}>
+      <Provider store={store}>      
+          <App />      
+      </Provider>
+    </GoogleOAuthProvider>
   </StrictMode>,
 )
