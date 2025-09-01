@@ -7,17 +7,17 @@ import { CgMathPlus } from "react-icons/cg";
 import ChatList from '../list/ChatList';
 import Friends from '../list/Friends';
 import AddFriends from '../list/AddFriends';
-import AcceptFriends from '../list/AcceptFriends';
+import FriendRequests from '../list/FriendRequests';
 import Settings from '../list/Settings';
 import Invite from '../list/Invite';
 import { useEffect } from 'react';
-import {analyticsService} from "@js";
+import { analyticsService } from "@js";
 
 const sidebarTabs = [
   { key: "chats", label: "Chats", icon: <FaComments size={22}/>, component: <ChatList /> },
   { key: "friends", label: "Friends", icon: <FaUserFriends size={22}/>, component: <Friends /> },
   { key: "add-friends", label: "Add Friends", icon: <MdPersonAddAlt1 size={22}/>, component: <AddFriends /> },
-  { key: "accept-friends", label: "Accept Friends", icon: <MdPersonAdd size={22}/>, component: <AcceptFriends /> },
+  { key: "friend-requests", label: "Friend Requests", icon: <MdPersonAdd size={22}/>, component: <FriendRequests /> },
   { key: "settings", label: "Settings", icon: <FaCog size={22}/>, component: <Settings /> },
   { key: "invite", label: "Invite Friends", icon: <CgMathPlus size={22}/>, component: <Invite /> },
 ];
@@ -25,7 +25,7 @@ const sidebarTabs = [
 function Sidebar() {
 
   const dispatch = useDispatch();
-  const { activeTab } = useSelector((state) => state.sidebar);
+  const { activeTab, counts } = useSelector((state) => state.sidebar);
   const { user } = useSelector((state) => state.auth); 
 
   const fetchAnalytics = async () => {
@@ -36,7 +36,8 @@ function Sidebar() {
   };
 
   useEffect(() => {
-    fetchAnalytics(); 
+    fetchAnalytics();
+    //eslint-disable-next-line 
   }, []);
 
   return (
@@ -50,6 +51,7 @@ function Sidebar() {
             active={activeTab === tab.key}
             onClick={() => dispatch(updateActiveTab(tab.key))}
             position="right"
+            badge={tab.key === "friend-requests" && counts?.requests > 0 ? counts?.requests : 0}
           />
         ))}
       </div>
@@ -66,7 +68,7 @@ function ActiveTabContent() {
         <h2 className="text-xl font-bold capitalize px-4 py-3 shrink-0">
           {tab.label}     
           {tab.key === "friends" && counts.friends > 0 && <span className="text-xs px-2 py-1 ms-4 rounded-full text-slate-800 bg-slate-100">{counts.friends}</span>}
-          {tab.key === "accept-friends" && counts.requests > 0 && <span className="text-xs px-2 py-1 ms-4 rounded-full text-slate-800 bg-slate-100">{counts.requests}</span>}
+          {/* {tab.key === "accept-friends" && counts.requests > 0 && <span className="text-xs px-2 py-1 ms-4 rounded-full text-slate-800 bg-slate-100">{counts.requests}</span>} */}
         </h2>
 
         <div className="flex-1 overflow-y-auto">
