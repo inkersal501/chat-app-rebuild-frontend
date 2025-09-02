@@ -5,7 +5,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 // import { resetDefault } from "@store/chatSlice";
 import { logout } from "@store/authSlice";
-import Logo from "@components/Common/Logo";
+import Logo from "@components/common/Logo";
 import UserIcon from "./UserIcon";
 
 function TopBar() {
