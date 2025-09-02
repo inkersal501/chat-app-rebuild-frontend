@@ -23,6 +23,7 @@ const Auth = () => {
     }, [isLoggedin, user])
 
     const handleGoogleLogin = async (credentialResponse) => {
+        // console.log(credentialResponse)
         try {
           const idToken = credentialResponse.credential;
            
