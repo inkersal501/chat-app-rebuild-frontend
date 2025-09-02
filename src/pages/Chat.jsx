@@ -1,4 +1,4 @@
-import TopBar from '@components/Common/TopBar';
+import TopBar from '@components/common/TopBar';
 import ChatLayout from '@components/layout/ChatLayout';
 
 function Chat() {
