@@ -1,9 +1,9 @@
 import { IoSend } from "react-icons/io5";
 import IconButton from "../common/IconButton";
-import { useState, useEffect } from "react"; 
+import React, { useState, useEffect } from "react"; 
 import { updateRefreshList, updateFirstChat } from '@store/chatSlice';
 import { useDispatch, useSelector } from "react-redux";
-import {messageService, socketService} from "@js"; 
+import {messageService, socketService} from "@js";  
 
 function MessageInput() {
 
@@ -66,4 +66,4 @@ function MessageInput() {
   );
 }
 
-export default MessageInput;
+export default React.memo(MessageInput);

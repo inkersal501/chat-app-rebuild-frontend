@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'; 
+import React, { useEffect, useState } from 'react'; 
 import { useDispatch, useSelector } from "react-redux"; 
 import UserCard from "../common/UserCard";
 import { chatService } from "@js";
@@ -84,4 +84,4 @@ const ChatList = () => {
     );
 };
 
-export default ChatList;
+export default React.memo(ChatList);
