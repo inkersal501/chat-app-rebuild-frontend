@@ -1,6 +1,6 @@
 import { IoSend } from "react-icons/io5";
 import IconButton from "../common/IconButton";
-import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect, useCallback } from "react"; 
 import { updateRefreshList, updateFirstChat } from '@store/chatSlice';
 import { useDispatch, useSelector } from "react-redux";
 import {messageService, socketService} from "@js";  
@@ -12,7 +12,7 @@ function MessageInput() {
   const {activeChat, firstChat} =  useSelector((state) => state.chat);
   const dispatch = useDispatch();
   
-  const handleSend = async () => {
+  const handleSend = useCallback(async () => {
     if (message.trim() === "") return;
     const messageData = {
       sender:{username: user.username, _id: user._id },
@@ -28,8 +28,8 @@ function MessageInput() {
       dispatch(updateRefreshList(true));
       dispatch(updateFirstChat({ id: activeChat.id, username: activeChat.firstName }));
     }
-    
-  };
+    //eslint-disable-next-line
+  }, [user, activeChat, dispatch, firstChat]);
 
   // const handleKeyDown = (e) => {
   //   if (e.key === "Enter") {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'; 
+import { useCallback, useEffect, useMemo, useState } from 'react'; 
 import { useSelector, useDispatch } from "react-redux";
 import { updateActiveTab } from '@store/sidebarSlice';
 import {connectService} from "@js";
@@ -31,12 +31,12 @@ function AcceptFriends() {
     setFilteredRequests(reqUsers);
   }, [reqUsers]);
 
-  const filterRequests = (search) => {
+  const filterRequests = useMemo((search) => {
     const filtered = reqUsers.filter((f) =>
         f.username.toLowerCase().includes(search.toLowerCase())
     );
     setFilteredRequests(filtered);
-  };
+  }, [reqUsers]);
 
   useEffect(()=> {
     if(search === "")
@@ -46,20 +46,20 @@ function AcceptFriends() {
     //eslint-disable-next-line
   }, [search]);
 
-  const acceptRequest = async (fromUserId) => { 
+  const acceptRequest = useMemo(async (fromUserId) => { 
     setReqUsers(prev => prev.map(user =>
       user._id === fromUserId ? { ...user, status: "request-accepted" } : user
     ));
 
     await connectService.acceptRequest(fromUserId, user.token); 
-  };
+  }, [user]);
 
-  const declineRequest = async (fromUserId) => {
+  const declineRequest = useCallback(async (fromUserId) => {
     setReqUsers(prev => prev.map(user =>
       user._id === fromUserId ? { ...user, status: "request-declined" } : user
     ));
     await connectService.declineRequest(fromUserId, user.token); 
-  };
+  }, [user]);
 
   const handleFindFriendsClick = () => {
     dispatch(updateActiveTab("add-friends"));

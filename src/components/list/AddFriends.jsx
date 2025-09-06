@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'; 
+import { useCallback, useEffect, useMemo, useState } from 'react'; 
 import { useSelector } from "react-redux";
 import {connectService} from "@js";
 import UserCard from "../common/UserCard";
@@ -28,12 +28,12 @@ function AddFriends() {
     setFilteredSugg(sugg);
   }, [sugg]);
 
-  const filterUsers = (search) => {
+  const filterUsers = useMemo((search) => {
     const filtered = sugg.filter((f) =>
       f.username.toLowerCase().includes(search.toLowerCase())
     );
     setFilteredSugg(filtered);
-  };
+  }, [sugg]);
 
   useEffect(()=> {
     if(search === "")
@@ -44,13 +44,13 @@ function AddFriends() {
   }, [search]);
 
 
-  const sendRequest = async (toUserId) => { 
+  const sendRequest = useCallback(async (toUserId) => { 
     setSugg(prev => prev.map(user =>
       user._id === toUserId ? { ...user, status: "request-sent" } : user
     ));
 
     await connectService.sendRequest(toUserId, user.token); 
-  };
+  }, [user]);
 
   return (
     <div className="flex flex-col h-full"> 

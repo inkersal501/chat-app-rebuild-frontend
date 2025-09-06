@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useCallback, useEffect, useMemo, useState } from 'react'; 
 import { useDispatch, useSelector } from "react-redux"; 
 import UserCard from "../common/UserCard";
 import { chatService } from "@js";
 import { updateActiveChat, updateFirstChat, updateRefreshList } from "@store/chatSlice";
 import useIsMobile from '@hooks/useIsMobile';
-
+ 
 const ChatList = () => {
 
     const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const ChatList = () => {
     const { activeChat, refreshList } = useSelector((state) => state.chat); 
     const isMobile = useIsMobile();
 
-    const getChatList = async () => {
+    const getChatList = useCallback(async () => {
         setLoading(true);
         const result = await chatService.getChatList(user.token);
         if (result.status) {
@@ -30,18 +30,20 @@ const ChatList = () => {
             }
         }  
         setLoading(false);
-    };
+    }, [user, activeChat, dispatch, isMobile]);
 
     //eslint-disable-next-line
     useEffect(() => { getChatList(); }, []);
     //eslint-disable-next-line
     useEffect(() => { if (refreshList) { getChatList(); dispatch(updateRefreshList(false)); } }, [refreshList]);
 
-    const filteredChatList = chatList.filter(chat => {
-        const other = chat.participants.find(p => p._id !== user._id);
-        const displayName = other ? other.username : "My Chat";
-        return displayName.toLowerCase().includes(search.toLowerCase());
-    });
+    const filteredChatList = useMemo(() => {
+        return chatList.filter(chat => {
+            const other = chat.participants.find(p => p._id !== user._id);
+            const displayName = other ? other.username : "My Chat";
+            return displayName.toLowerCase().includes(search.toLowerCase());
+        });
+    }, [search, chatList, user._id]);
 
     const handleOpenChat = (id, username) => dispatch(updateActiveChat({ id, username }));
 

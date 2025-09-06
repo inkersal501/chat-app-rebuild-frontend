@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"; 
 import { ImCheckmark } from "react-icons/im";
 import IconButton from "../common/IconButton";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import {userService} from "@js";
 import { login } from "@store/authSlice";
 
@@ -10,14 +10,15 @@ const Settings = () => {
     const {user} = useSelector((state)=>state.auth);
     const dispatch = useDispatch();
     const [username, setUsername] = useState(user.username || "");
-    const handleUsernameUpdate = async () => { 
+    
+    const handleUsernameUpdate = useCallback(async () => { 
         try {
             const update = await userService.updateUsername(user.token, username);
             dispatch(login({ ...update }));
         } catch (error) {
             console.error(error);
         }
-    };
+    }, [user, dispatch, username]);
 
     return (
         <div className="space-y-4">

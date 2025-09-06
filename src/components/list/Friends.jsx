@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';   
+import { useEffect, useMemo, useState } from 'react';   
 import { useDispatch, useSelector } from "react-redux";
 import {connectService} from "@js";
 import UserCard from "../common/UserCard";
@@ -30,12 +30,13 @@ const FriendList = () => {
         setFilteredFriends(friends);
     }, [friends]);
 
-    const filterFriends = (search) => {
+    const filterFriends = useMemo((search) => {
         const filtered = friends.filter((f) =>
             f.username.toLowerCase().includes(search.toLowerCase())
         );
         setFilteredFriends(filtered);
-    };
+    }, [friends]);
+
     useEffect(()=> {
         if(search === "")
             setFilteredFriends(friends);
@@ -46,7 +47,7 @@ const FriendList = () => {
     
     const handleOpenChat = (id, username) => {   
         dispatch(updateActiveChat({ id, username}))
-    }
+    };
 
     return (
         <div className="flex flex-col h-full">

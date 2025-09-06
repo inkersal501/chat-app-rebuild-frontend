@@ -28,6 +28,7 @@ function ChatWindow() {
   const handleBack = () => {
     dispatch(updateActiveChat({ id: null, username: null}));
   };
+
   return (
     <>
     {showChat && 
