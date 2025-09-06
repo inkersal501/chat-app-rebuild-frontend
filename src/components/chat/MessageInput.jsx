@@ -3,7 +3,7 @@ import IconButton from "../common/IconButton";
 import React, { useState, useEffect, useCallback } from "react"; 
 import { updateRefreshList, updateFirstChat } from "@store/chatSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { messageService, socketService } from "@js";  
+import { socketService } from "@js";  
 
 function MessageInput() {
   const [message, setMessage] = useState("");
@@ -32,7 +32,7 @@ function MessageInput() {
 
     try { 
       socketService.emit("send_message", { roomId: activeChat.id, message: messageData }); 
-      await messageService.sendMessage(activeChat.id, user.token, trimmed);
+      // await messageService.sendMessage(activeChat.id, user.token, trimmed);
  
       if (firstChat.id !== activeChat.id) {
         dispatch(updateRefreshList(true));
