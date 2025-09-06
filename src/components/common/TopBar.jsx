@@ -10,7 +10,7 @@ import UserIcon from "./UserIcon";
 
 function TopBar() {
 
-  const user = useSelector((state) => state.auth.user);
+  const {user} = useSelector((state) => state.auth);
   const [showLogout, setShowLogout] = useState(false);
   const dropdownRef = useRef(null);
   
@@ -45,7 +45,7 @@ function TopBar() {
         <Logo size="sm" />
         <h1 className="text-xl font-semibold m-0">Chat App</h1>
       </div>
- 
+      {user &&
       <div className="relative" ref={dropdownRef}> 
         <div
           className="flex items-center space-x-3 cursor-pointer hover:bg-slate-700 px-2 py-1 rounded-lg transition"
@@ -70,6 +70,7 @@ function TopBar() {
           </div>
         )}
       </div>
+      }
     </div>
   );
 }

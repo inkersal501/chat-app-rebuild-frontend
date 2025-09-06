@@ -4,7 +4,7 @@ import {connectService} from "@js";
 import UserCard from "../common/UserCard";
 import {updateActiveChat} from "@store/chatSlice";
 
-const FriendList = () => {
+const Friends = () => {
 
     const [friends, setFriends] = useState([]);
     const [filteredFriends, setFilteredFriends] = useState([]);
@@ -31,11 +31,12 @@ const FriendList = () => {
     }, [friends]);
 
     const filterFriends = useMemo((search) => {
+        if(!search) return friends;
         const filtered = friends.filter((f) =>
             f.username.toLowerCase().includes(search.toLowerCase())
         );
-        setFilteredFriends(filtered);
-    }, [friends]);
+        setFilteredFriends(filtered);    
+    }, [friends, search]);
 
     useEffect(()=> {
         if(search === "")
@@ -75,4 +76,4 @@ const FriendList = () => {
     );
 };
 
-export default FriendList;
+export default Friends;

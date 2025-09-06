@@ -5,7 +5,7 @@ import {connectService} from "@js";
 import UserCard from "../common/UserCard";
 import Button from '../common/Button';
 
-function AcceptFriends() {
+function FriendRequests() {
   
   const dispatch = useDispatch();
   const [reqUsers, setReqUsers] = useState([]);
@@ -32,11 +32,12 @@ function AcceptFriends() {
   }, [reqUsers]);
 
   const filterRequests = useMemo((search) => {
+    if(!search) return reqUsers;
     const filtered = reqUsers.filter((f) =>
         f.username.toLowerCase().includes(search.toLowerCase())
     );
     setFilteredRequests(filtered);
-  }, [reqUsers]);
+  }, [reqUsers, search]);
 
   useEffect(()=> {
     if(search === "")
@@ -46,7 +47,7 @@ function AcceptFriends() {
     //eslint-disable-next-line
   }, [search]);
 
-  const acceptRequest = useMemo(async (fromUserId) => { 
+  const acceptRequest = useCallback(async (fromUserId) => { 
     setReqUsers(prev => prev.map(user =>
       user._id === fromUserId ? { ...user, status: "request-accepted" } : user
     ));
@@ -112,4 +113,4 @@ function AcceptFriends() {
   );
 }
 
-export default AcceptFriends;
+export default FriendRequests;

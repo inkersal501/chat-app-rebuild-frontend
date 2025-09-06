@@ -29,11 +29,12 @@ function AddFriends() {
   }, [sugg]);
 
   const filterUsers = useMemo((search) => {
+    if(!search) return sugg;
     const filtered = sugg.filter((f) =>
       f.username.toLowerCase().includes(search.toLowerCase())
     );
     setFilteredSugg(filtered);
-  }, [sugg]);
+  }, [sugg, search]);
 
   useEffect(()=> {
     if(search === "")
